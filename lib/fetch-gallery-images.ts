@@ -35,10 +35,24 @@ export type GalleryFolderImages = {
   mobile: string[]
 }
 
-/** Gallery list from public/desktop-background and public/mobile-background. */
+function uniquePaths(paths: string[]): string[] {
+  return [...new Set(paths)]
+}
+
+/** Gallery list from public/desktop_view and public/mobile_display. */
 export async function fetchGalleryImages(): Promise<GalleryFolderImages> {
   return {
-    desktop: readImagesFromPublicDir("desktop-background").map(encodePublicImagePath),
-    mobile: readImagesFromPublicDir("mobile-background").map(encodePublicImagePath),
+    desktop: uniquePaths(
+      [
+        ...readImagesFromPublicDir("desktop_view"),
+        ...readImagesFromPublicDir("desktop-background"),
+      ].map(encodePublicImagePath),
+    ),
+    mobile: uniquePaths(
+      [
+        ...readImagesFromPublicDir("mobile_display"),
+        ...readImagesFromPublicDir("mobile-background"),
+      ].map(encodePublicImagePath),
+    ),
   }
 }

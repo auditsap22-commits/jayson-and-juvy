@@ -43,7 +43,7 @@ export default function MasonryGallery({ images }: { images: ImageItem[] }) {
     <div ref={topRef} className="relative">
       {/* Header (buttons removed per request) */}
       <div className="mb-6 flex justify-end">
-        <div className="text-[#606C60]/90 text-sm font-sans">
+        <div className="font-goudy-italic text-sm" style={{ color: "#6a7b5c" }}>
           {images.length} photos
         </div>
       </div>

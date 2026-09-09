@@ -5,24 +5,30 @@ import { createPortal } from "react-dom"
 import Link from "next/link"
 import Image from "next/image"
 import localFont from "next/font/local"
-import { X, ChevronLeft, ChevronRight, Camera, ArrowRight } from "lucide-react"
+import { X, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react"
 import { Cinzel } from "next/font/google"
 import { Section } from "@/components/section"
-import { useSiteConfig } from "@/hooks/use-site-config"
-import { sectionType, welcomeTitleSize } from "@/lib/section-typography"
+import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
+
+const paperWash = {
+  cream: "#f7f4eb",
+  lift: "#f9f6ee",
+  sage: "#4b5d44",
+  sageSoft: "#6a7b5c",
+  wash: "#8b9d78",
+} as const
+
+const galleryBackground = `
+  radial-gradient(80% 55% at 50% 0%, color-mix(in srgb, #c9d2bc 22%, transparent), transparent 62%),
+  radial-gradient(ellipse 70% 42% at 100% 0%, color-mix(in srgb, ${paperWash.wash} 28%, transparent), transparent 68%),
+  radial-gradient(ellipse 70% 42% at 0% 100%, color-mix(in srgb, ${paperWash.wash} 22%, transparent), transparent 68%),
+  linear-gradient(180deg, #ece6d6 0%, #e4ddcc 100%)
+`
 
 const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 })
-
-const C = {
-  cream: "#f7f3e9",
-  lift: "#faf7ef",
-  champagne: "#DDBA7A",
-  gold: "#AB832E",
-  slate: "#364061",
-} as const
 
 const theSeasons = localFont({
   src: "../../Font/Fontspring-DEMO-theseasons-reg.otf",
@@ -36,43 +42,74 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const CORNER_DECO_CLASS =
-  "block h-auto w-auto max-w-[88px] sm:max-w-[108px] md:max-w-[124px] lg:max-w-[140px]"
-
-function GalleryCoupleLabel({ groom, bride }: { groom: string; bride: string }) {
-  const lineStyle = {
-    background:
-      "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
-  }
-
+function CornerDecorations() {
   return (
-    <div className="flex items-center justify-center gap-2.5 sm:gap-3.5 mt-8 sm:mt-10 md:mt-12">
-      <span className="h-px w-5 sm:w-7 md:w-9" style={lineStyle} aria-hidden />
-      <p
-        className={`${cinzel.className} ${sectionType.label} shrink-0 py-0.5 font-semibold uppercase leading-normal tracking-[0.34em] min-[400px]:tracking-[0.38em] sm:tracking-[0.44em]`}
-        style={{ color: "var(--color-welcome-navy)" }}
-      >
-        With {groom}
-        <span
-          className={`${aboveTheBeyond.className} mx-1.5 inline-block normal-case tracking-normal sm:mx-2`}
-          style={{
-            fontSize: "1.35em",
-            color: "var(--color-welcome-green)",
-            verticalAlign: "middle",
-          }}
-          aria-hidden
-        >
-          &
-        </span>
-        {bride}
-      </p>
+    <>
+      <div className="pointer-events-none absolute left-0 top-0 z-10 w-[clamp(8.5rem,42vw,16.5rem)]">
+        <Image
+          src="/decoration/left-top-decoration.png"
+          alt=""
+          width={1138}
+          height={1172}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 42vw, 264px"
+        />
+      </div>
+      <div className="pointer-events-none absolute right-0 top-0 z-10 w-[clamp(7.5rem,38vw,14.5rem)]">
+        <Image
+          src="/decoration/right-top-decoration.png"
+          alt=""
+          width={1283}
+          height={1226}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 38vw, 232px"
+        />
+      </div>
+      <div className="pointer-events-none absolute bottom-0 left-0 z-10 w-[clamp(7.5rem,38vw,14.5rem)]">
+        <Image
+          src="/decoration/left-bottom-decoration.png"
+          alt=""
+          width={1115}
+          height={1411}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 38vw, 232px"
+        />
+      </div>
+      <div className="pointer-events-none absolute bottom-0 right-0 z-10 w-[clamp(8.5rem,42vw,16.5rem)]">
+        <Image
+          src="/decoration/right-bottom-decoration.png"
+          alt=""
+          width={988}
+          height={1487}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 42vw, 264px"
+        />
+      </div>
+    </>
+  )
+}
+
+function OrnamentalDivider() {
+  return (
+    <div className="flex items-center justify-center gap-1.5">
       <span
-        className="h-px w-5 sm:w-7 md:w-9"
+        className="h-px w-6 sm:w-10"
         style={{
           background:
-            "linear-gradient(to left, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
+            "linear-gradient(to right, transparent, color-mix(in srgb, #4b5d44 38%, transparent))",
         }}
+      />
+      <span
+        className="h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1"
+        style={{ backgroundColor: paperWash.sageSoft }}
         aria-hidden
+      />
+      <span
+        className="h-px w-6 sm:w-10"
+        style={{
+          background:
+            "linear-gradient(to left, transparent, color-mix(in srgb, #4b5d44 38%, transparent))",
+        }}
       />
     </div>
   )
@@ -81,19 +118,19 @@ function GalleryCoupleLabel({ groom, bride }: { groom: string; bride: string }) 
 function GalleryTitle() {
   return (
     <h2
-      className="welcome-title-lockup relative mx-auto w-full max-w-full text-center"
+      className="welcome-title-lockup relative mx-auto w-full max-w-full text-center mt-8 sm:mt-10 md:mt-12"
       style={
         {
-          "--title-size": welcomeTitleSize.main,
-          "--script-size": welcomeTitleSize.script,
+          "--title-size": layeredSectionTitleSize.main,
+          "--script-size": layeredSectionTitleSize.script,
         } as React.CSSProperties
       }
     >
       <span
-        className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em] pb-1 sm:pb-1.5`}
+        className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em] mt-4 pb-1 sm:mt-5 sm:pb-1.5 md:mt-6`}
         style={{
           fontSize: "var(--title-size)",
-          color: "var(--color-welcome-navy)",
+          color: paperWash.sage,
         }}
       >
         Gallery
@@ -103,7 +140,7 @@ function GalleryTitle() {
         className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
         style={{
           fontSize: "var(--script-size)",
-          color: "var(--color-welcome-green)",
+          color: paperWash.sageSoft,
         }}
       >
         our favorite moments
@@ -114,20 +151,15 @@ function GalleryTitle() {
 }
 
 const galleryItems = [
-  { image: "/mobile-background/couple (1).jpeg", text: " " },
-  { image: "/mobile-background/couple (1).jpg", text: " " },
-  { image: "/mobile-background/couple (2).jpeg", text: " " },
-  { image: "/mobile-background/couple (2).jpg", text: " " },
-  { image: "/mobile-background/couple (3).jpeg", text: " " },
-  { image: "/mobile-background/couple (3).jpg", text: " " },
-  { image: "/mobile-background/couple (4).jpg", text: " " },
+  { image: "/mobile_display/couple (1).png", text: " " },
+  { image: "/mobile_display/couple (2).png", text: " " },
+  { image: "/mobile_display/couple (3).png", text: " " },
+  { image: "/mobile_display/couple (4).png", text: " " },
+  { image: "/mobile_display/couple (5).png", text: " " },
+  { image: "/mobile_display/couple (6).png", text: " " },
 ]
 
 export function Gallery() {
-  const siteConfig = useSiteConfig()
-  const brideName = siteConfig.couple.brideNickname || siteConfig.couple.bride
-  const groomName = siteConfig.couple.groomNickname || siteConfig.couple.groom
-
   const [selectedImage, setSelectedImage] = useState<(typeof galleryItems)[0] | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
@@ -208,89 +240,27 @@ export function Gallery() {
 
   return (
     <div
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full`}
-      style={{
-        background: `
-          radial-gradient(920px 520px at 50% 8%, color-mix(in srgb, ${C.champagne} 35%, transparent) 0%, transparent 55%),
-          radial-gradient(640px 420px at 12% 88%, color-mix(in srgb, ${C.slate} 16%, transparent) 0%, transparent 58%),
-          radial-gradient(560px 380px at 92% 78%, color-mix(in srgb, ${C.gold} 14%, transparent) 0%, transparent 55%),
-          linear-gradient(180deg, ${C.cream} 0%, ${C.lift} 48%, ${C.cream} 100%)
-        `,
-      }}
+      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full overflow-x-hidden`}
+      style={{ background: galleryBackground }}
     >
       <Section
         id="gallery"
-        className="relative z-10 pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14"
+        className="relative z-10 overflow-hidden pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14"
       >
-      {/* Corner decorations */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/deco/left-top-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute right-0 top-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/deco/right-top-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/deco/left-bottom-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 right-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/deco/right-bottom-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
+      <CornerDecorations />
 
-      {/* Header */}
-      <div className="relative z-20 mx-auto mb-6 max-w-5xl px-6 text-center @container/gallery sm:mb-8 sm:px-10 md:mb-10 md:px-12">
-        <GalleryCoupleLabel groom={groomName} bride={brideName} />
-        <div className="mt-6 mb-4 sm:mt-8 sm:mb-5 md:mt-10 md:mb-6">
-          <GalleryTitle />
+      <div className="relative z-20 mx-auto mb-6 max-w-5xl px-4 text-center @container/gallery sm:mb-8 sm:px-10 md:mb-10 md:px-12">
+        <div className="mx-auto mb-5 sm:mb-6 md:mb-7">
+          <OrnamentalDivider />
         </div>
+        <GalleryTitle />
         <p
-          className={`font-goudy-italic mx-auto max-w-2xl px-2 ${sectionType.textRelaxed}`}
-          style={{ color: "var(--color-welcome-text)" }}
+          className={`font-goudy-italic mx-auto mt-4 max-w-xl px-2 sm:mt-5 md:mt-6 ${sectionType.textRelaxed}`}
+          style={{ color: paperWash.sage }}
         >
           From our first chapter to this beautiful season of commitment — every moment has been a
           testament to love, faith, and grace.
         </p>
-
-        <div className="flex items-center justify-center gap-2 pt-3 sm:pt-4">
-          <span
-            className="h-px w-8 sm:w-12 md:w-16"
-            style={{
-              background:
-                "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 38%, transparent))",
-            }}
-          />
-          <Camera
-            className="h-3.5 w-3.5 sm:h-4 sm:w-4"
-            style={{ color: "var(--color-welcome-green)" }}
-            aria-hidden
-          />
-          <span
-            className="h-px w-8 sm:w-12 md:w-16"
-            style={{
-              background:
-                "linear-gradient(to left, transparent, color-mix(in srgb, var(--color-welcome-navy) 38%, transparent))",
-            }}
-          />
-        </div>
       </div>
 
       {/* Gallery content — images outside container */}
@@ -300,8 +270,8 @@ export function Gallery() {
             <div
               className="h-12 w-12 animate-spin rounded-full border-[3px]"
               style={{
-                borderColor: "color-mix(in srgb, var(--color-welcome-green) 30%, transparent)",
-                borderTopColor: "var(--color-welcome-green)",
+                borderColor: "color-mix(in srgb, #4b5d44 30%, transparent)",
+                borderTopColor: paperWash.sage,
               }}
             />
           </div>
@@ -329,7 +299,7 @@ export function Gallery() {
                       className="pointer-events-none absolute -inset-0.5 rounded-lg opacity-0 blur-sm transition-opacity duration-300 group-active:opacity-100"
                       style={{
                         background:
-                          "color-mix(in srgb, var(--color-welcome-green) 25%, transparent)",
+                          "color-mix(in srgb, #6a7b5c 25%, transparent)",
                       }}
                     />
 
@@ -348,12 +318,12 @@ export function Gallery() {
                       className="absolute top-2 right-2 rounded-full px-2 py-1 backdrop-blur-sm"
                       style={{
                         backgroundColor:
-                          "color-mix(in srgb, var(--color-welcome-navy) 65%, transparent)",
+                          "color-mix(in srgb, #4b5d44 65%, transparent)",
                       }}
                     >
                       <span
                         className="text-xs font-medium"
-                        style={{ color: "var(--color-welcome-bg)" }}
+                        style={{ color: paperWash.cream }}
                       >
                         {index + 1}/{galleryItems.length}
                       </span>
@@ -363,8 +333,8 @@ export function Gallery() {
               </div>
 
               <p
-                className={`font-goudy-italic mt-2 text-center tracking-wide ${sectionType.label}`}
-                style={{ color: "var(--color-welcome-heading)" }}
+                className="font-goudy-italic mt-3 text-center text-[0.8125rem] italic leading-[1.55] tracking-[0.02em] sm:text-[0.92rem]"
+                style={{ color: paperWash.sageSoft }}
               >
                 Swipe to explore
               </p>
@@ -388,7 +358,7 @@ export function Gallery() {
                     className="pointer-events-none absolute -inset-0.5 rounded-xl opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100"
                     style={{
                       background:
-                        "color-mix(in srgb, var(--color-welcome-green) 22%, transparent)",
+                        "color-mix(in srgb, #6a7b5c 22%, transparent)",
                     }}
                   />
 
@@ -407,12 +377,12 @@ export function Gallery() {
                     className="absolute top-2 right-2 rounded-full px-2 py-1 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100"
                     style={{
                       backgroundColor:
-                        "color-mix(in srgb, var(--color-welcome-navy) 65%, transparent)",
+                        "color-mix(in srgb, #4b5d44 65%, transparent)",
                     }}
                   >
                     <span
                       className="text-xs font-medium"
-                      style={{ color: "var(--color-welcome-bg)" }}
+                      style={{ color: paperWash.cream }}
                     >
                       {index + 1}/{galleryItems.length}
                     </span>
@@ -421,42 +391,43 @@ export function Gallery() {
               ))}
             </div>
 
-            <div className="mt-10 sm:mt-12 md:mt-14 flex justify-center">
-              <Link
-                href="/gallery"
-                className={`${cinzel.className} group inline-flex items-center gap-4 rounded-full border py-1 pl-7 pr-1 text-[0.625rem] font-semibold uppercase tracking-[0.22em] transition-all duration-300 hover:scale-[1.02] sm:gap-5 sm:py-1.5 sm:pl-9 sm:pr-1.5 sm:text-[0.6875rem] sm:tracking-[0.28em] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4`}
-                style={{
-                  backgroundColor: "#04103B",
-                  borderColor: "color-mix(in srgb, #04103B 35%, transparent)",
-                  color: "var(--color-welcome-bg)",
-                  boxShadow: "0 6px 20px color-mix(in srgb, #04103B 35%, transparent)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "#192030"
-                  e.currentTarget.style.borderColor = "#04103B"
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "#04103B"
-                  e.currentTarget.style.borderColor =
-                    "color-mix(in srgb, #04103B 35%, transparent)"
-                }}
-              >
-                <span>View Full Gallery</span>
-                <span
-                  className="flex h-8 w-8 items-center justify-center rounded-full sm:h-10 sm:w-10"
+            <div className="relative mt-10 px-2 pb-6 text-center sm:mt-12 sm:pb-8 md:mt-14 md:pb-10">
+              <div className="mx-auto mb-5 sm:mb-6">
+                <OrnamentalDivider />
+              </div>
+              <div className="flex justify-center">
+                <Link
+                  href="/gallery"
+                  className={`${cinzel.className} group inline-flex items-center justify-center gap-3 rounded-full border py-[0.28rem] pl-6 pr-[0.28rem] text-[0.625rem] font-semibold uppercase tracking-[0.2em] transition-all duration-300 hover:-translate-y-0.5 sm:gap-3.5 sm:pl-7 sm:text-[0.6875rem]`}
                   style={{
-                    backgroundColor: "var(--color-welcome-bg)",
-                    boxShadow: "0 1px 0 color-mix(in srgb, var(--color-welcome-navy) 10%, transparent)",
+                    backgroundColor: paperWash.sage,
+                    borderColor: "color-mix(in srgb, #4b5d44 35%, transparent)",
+                    color: paperWash.cream,
+                    boxShadow: "0 8px 22px color-mix(in srgb, #4b5d44 22%, transparent)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = "#3d4a36"
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = paperWash.sage
                   }}
                 >
-                  <ArrowRight
-                    className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5 sm:h-4 sm:w-4"
-                    strokeWidth={2.25}
-                    style={{ color: "#04103B" }}
-                    aria-hidden
-                  />
-                </span>
-              </Link>
+                  <span>View Full Gallery</span>
+                  <span
+                    className="flex h-[2.15rem] w-[2.15rem] items-center justify-center rounded-full"
+                    style={{
+                      backgroundColor: paperWash.cream,
+                      color: paperWash.sage,
+                    }}
+                  >
+                    <ArrowRight
+                      className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5"
+                      strokeWidth={2.25}
+                      aria-hidden
+                    />
+                  </span>
+                </Link>
+              </div>
             </div>
           </>
         )}

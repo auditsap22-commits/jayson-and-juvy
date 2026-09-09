@@ -131,7 +131,7 @@ function SnapShareTitle() {
       }
     >
       <span
-        className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em] pb-1 sm:pb-1.5`}
+        className={`${theSeasons.className} block max-w-[14ch] mx-auto text-balance uppercase leading-[0.92] tracking-[0.06em] min-[400px]:tracking-[0.1em] sm:max-w-none sm:leading-[0.78] sm:tracking-[0.13em] md:tracking-[0.14em] pb-1 sm:pb-1.5`}
         style={{
           fontSize: "var(--title-size)",
           color: outsideInk.text,
@@ -173,7 +173,7 @@ function ContentCard({
         }}
         aria-hidden
       />
-      <div className="relative z-20 flex flex-col gap-3 px-4 py-5 sm:gap-4 sm:px-5 sm:py-6 md:px-6 md:py-7">
+      <div className="relative z-20 flex flex-col gap-3 px-3.5 py-4 sm:gap-4 sm:px-5 sm:py-6 md:px-6 md:py-7">
         {children}
       </div>
     </div>
@@ -195,7 +195,7 @@ function PrimaryButton({
     <button
       type="button"
       onClick={onClick}
-      className={`${cinzel.className} group relative inline-flex items-center justify-center gap-1.5 rounded-sm border px-5 py-2.5 font-semibold uppercase tracking-[0.18em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:px-6 sm:py-3 sm:tracking-[0.2em] md:tracking-[0.24em] ${ct.btn} ${className}`}
+      className={`${cinzel.className} group relative inline-flex w-full min-h-11 items-center justify-center gap-1.5 rounded-md border px-4 py-2.5 font-semibold uppercase tracking-[0.14em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 sm:w-auto sm:min-h-12 sm:rounded-sm sm:px-6 sm:py-3 sm:tracking-[0.2em] md:tracking-[0.24em] ${ct.btn} ${className}`}
       style={
         active
           ? {
@@ -316,8 +316,8 @@ export function SnapShare() {
       id="snap-share"
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative z-10 bg-transparent pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14`}
     >
-      <div className="relative z-20 mx-auto max-w-6xl px-4 @container/snap-share sm:px-6 md:px-8">
-        <div className="relative z-20 px-6 text-center sm:px-10 md:px-12">
+      <div className="relative z-20 mx-auto max-w-6xl px-3 @container/snap-share sm:px-6 md:px-8">
+        <div className="relative z-20 px-2 text-center sm:px-10 md:px-12">
           <div className="mx-auto mb-5 sm:mb-6 md:mb-7">
             <OutsideDivider />
           </div>
@@ -345,30 +345,42 @@ export function SnapShare() {
               Our Favorite Moments
             </h4>
             <div className="grid w-full min-w-0 grid-cols-2 gap-2 sm:gap-3">
-              <div className="relative aspect-square overflow-hidden rounded-xl border shadow-sm" style={{ borderColor: goldLine }}>
+              <div
+                className="relative aspect-[3/4] overflow-hidden rounded-lg border shadow-sm sm:min-h-[16rem] sm:rounded-xl md:min-h-[18rem]"
+                style={{ borderColor: goldLine }}
+              >
                 <Image
-                  src="/mobile-background/couple (1).jpeg"
+                  src="/mobile_display/couple (5).png"
                   alt="Wedding moment 1"
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 640px) 45vw, 280px"
+                  className="object-cover object-top"
                   style={{ imageOrientation: "from-image" }}
                 />
               </div>
-              <div className="relative aspect-square overflow-hidden rounded-xl border shadow-sm" style={{ borderColor: goldLine }}>
+              <div
+                className="relative aspect-[3/4] overflow-hidden rounded-lg border shadow-sm sm:min-h-[16rem] sm:rounded-xl md:min-h-[18rem]"
+                style={{ borderColor: goldLine }}
+              >
                 <Image
-                  src="/mobile-background/couple (2).jpg"
+                  src="/mobile_display/couple (6).png"
                   alt="Wedding moment 2"
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 640px) 45vw, 280px"
+                  className="object-cover object-top"
                   style={{ imageOrientation: "from-image" }}
                 />
               </div>
-              <div className="relative col-span-2 aspect-[3/2] overflow-hidden rounded-xl border shadow-sm" style={{ borderColor: goldLine }}>
+              <div
+                className="relative col-span-2 aspect-[16/10] overflow-hidden rounded-lg border shadow-sm sm:aspect-[3/2] sm:rounded-xl"
+                style={{ borderColor: goldLine }}
+              >
                 <Image
-                  src="/Details/video.jpg"
+                  src="/desktop_view/couple (1).png"
                   alt="Wedding moment 3"
                   fill
-                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 560px"
+                  className="object-cover object-center"
                 />
               </div>
             </div>
@@ -512,7 +524,7 @@ export function SnapShare() {
                 Help spread the word about {coupleDisplayName}&apos;s wedding across your favorite
                 platforms.
               </p>
-              <div className="grid w-full min-w-0 grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
+              <div className="grid w-full min-w-0 grid-cols-2 gap-2 sm:gap-3">
                 {(
                   [
                     { platform: "instagram" as const, Icon: Instagram, label: "Instagram" },
@@ -603,7 +615,7 @@ export function SnapShare() {
                     href={uploadLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${cinzel.className} group relative inline-flex items-center justify-center gap-1.5 rounded-sm border px-5 py-2.5 font-semibold uppercase tracking-[0.18em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 sm:px-6 sm:py-3 sm:tracking-[0.2em] md:tracking-[0.24em] ${ct.btn}`}
+                    className={`${cinzel.className} group relative inline-flex w-full min-h-11 items-center justify-center gap-1.5 rounded-md border px-4 py-2.5 font-semibold uppercase tracking-[0.14em] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 sm:w-auto sm:px-6 sm:py-3 sm:tracking-[0.2em] md:tracking-[0.24em] ${ct.btn}`}
                     style={buttonStyle}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.backgroundColor = "#3d4a36"

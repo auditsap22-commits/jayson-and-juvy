@@ -92,7 +92,7 @@ export const siteConfig = {
     image: ["/Details/ceremony.png", "/Details/ceremony2.png"],
   },
   dressCode: {
-    theme: "STRICTLY FORMAL",
+    theme: "CASUAL",
     sponsors: {
       title: "Sponsors",
       ninang: {
@@ -126,15 +126,15 @@ export const siteConfig = {
     guests: {
       title: "Guests",
       label: "Guests",
-      description: "Formal attire and formal dress.",
+      description: "Casual attire in our sage palette. Kindly avoid white.",
       image: "/Details/guest.png",
       palette: ["#04103B", "#192030", "#364061", "#AB832E", "#DDBA7A"],
     },
     paletteNote:
-      "To create a cohesive and elegant celebration, we kindly encourage our guests to follow the suggested color palette above. To allow our wedding party to be easily distinguished, we respectfully ask that guests refrain from wearing white or black, as these colors are reserved for the couple and the wedding party.",
+      "Casual is most welcome. To keep the day cohesive, we kindly encourage guests to dress in Sage Hint, Mint, Sage, Moss, or Evergreen. White is reserved for the couple.",
     closing:
       "Thank you for helping us bring our wedding vision to life. We can't wait to celebrate with you!",
-    note: "We kindly request our guests to dress in attire following our wedding palette.",
+    note: "Guests are most welcome in casual attire within our sage palette. Kindly avoid white.",
   },
   narratives: {
     ourStory: `CHAPTER 1
@@ -272,12 +272,12 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     googleDriveLink:
       "https://drive.google.com/drive/folders/1RkdZxTxgWR354PpqkdEe79LU7zujFST9?usp=sharing",
     albumQR: "/QR/AlbumQR.png",
-    hashtag: ["#JENfoundHisdesTINy"],
+    hashtag: ["#JaysonJuvyWedding"],
     instructions: "Please scan this QR Code and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
   },
   accommodation: {
     coordinator: {
-      name: "Jen / Tin",
+      name: "Jayson / Juvy",
       phone: "to be announced",
     },
     hotels: [

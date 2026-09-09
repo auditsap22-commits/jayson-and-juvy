@@ -244,7 +244,7 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
     {
       question: "What is the dress code?",
       answer:
-        "Please follow the attire guide in Event Details. Guests may wear a midi or cocktail dress, or a collared shirt, in Sage Hint, Mint, Sage, Moss, or Evergreen. Kindly avoid white and casual clothes or shoes.",
+        "Please follow the attire guide in Event Details. Casual is most welcome — a casual dress, midi or cocktail dress, collared shirt, or casual polo in Sage Hint, Mint, Sage, Moss, or Evergreen. Kindly avoid white, which is reserved for the couple.",
     },
     {
       question: "Will the ceremony be unplugged?",

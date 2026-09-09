@@ -1,9 +1,9 @@
+import Image from "next/image"
 import MasonryGallery from "@/components/masonry-gallery"
 import { getSiteConfig } from "@/lib/site-config"
 import { fetchGalleryImages } from "@/lib/fetch-gallery-images"
 import localFont from "next/font/local"
 import { Cinzel } from "next/font/google"
-import { Camera } from "lucide-react"
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -22,15 +22,74 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const CORNER_DECO_CLASS =
-  "block h-auto w-auto max-w-[72px] sm:max-w-[96px] md:max-w-[120px] lg:max-w-[140px] xl:max-w-[160px]"
+const paperWash = {
+  cream: "#f7f4eb",
+  lift: "#f9f6ee",
+  sage: "#4b5d44",
+  sageSoft: "#6a7b5c",
+  wash: "#8b9d78",
+} as const
+
+const galleryBackground = `
+  radial-gradient(80% 55% at 50% 0%, color-mix(in srgb, #c9d2bc 22%, transparent), transparent 62%),
+  radial-gradient(ellipse 70% 42% at 100% 0%, color-mix(in srgb, ${paperWash.wash} 28%, transparent), transparent 68%),
+  radial-gradient(ellipse 70% 42% at 0% 100%, color-mix(in srgb, ${paperWash.wash} 22%, transparent), transparent 68%),
+  linear-gradient(180deg, #ece6d6 0%, #e4ddcc 100%)
+`
 
 export const dynamic = "force-static"
+
+function CornerDecorations() {
+  return (
+    <>
+      <div className="pointer-events-none absolute left-0 top-0 z-10 w-[clamp(8.5rem,42vw,16.5rem)]">
+        <Image
+          src="/decoration/left-top-decoration.png"
+          alt=""
+          width={1138}
+          height={1172}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 42vw, 264px"
+        />
+      </div>
+      <div className="pointer-events-none absolute right-0 top-0 z-10 w-[clamp(7.5rem,38vw,14.5rem)]">
+        <Image
+          src="/decoration/right-top-decoration.png"
+          alt=""
+          width={1283}
+          height={1226}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 38vw, 232px"
+        />
+      </div>
+      <div className="pointer-events-none absolute bottom-0 left-0 z-10 w-[clamp(7.5rem,38vw,14.5rem)]">
+        <Image
+          src="/decoration/left-bottom-decoration.png"
+          alt=""
+          width={1115}
+          height={1411}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 38vw, 232px"
+        />
+      </div>
+      <div className="pointer-events-none absolute bottom-0 right-0 z-10 w-[clamp(8.5rem,42vw,16.5rem)]">
+        <Image
+          src="/decoration/right-bottom-decoration.png"
+          alt=""
+          width={988}
+          height={1487}
+          className="h-auto w-full"
+          sizes="(max-width: 768px) 42vw, 264px"
+        />
+      </div>
+    </>
+  )
+}
 
 function GalleryCoupleLabel({ groom, bride }: { groom: string; bride: string }) {
   const lineStyle = {
     background:
-      "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
+      "linear-gradient(to right, transparent, color-mix(in srgb, #4b5d44 35%, transparent))",
   }
 
   return (
@@ -38,14 +97,14 @@ function GalleryCoupleLabel({ groom, bride }: { groom: string; bride: string }) 
       <span className="h-px w-5 sm:w-7 md:w-9" style={lineStyle} aria-hidden />
       <p
         className={`${cinzel.className} shrink-0 py-0.5 text-[0.525rem] font-semibold uppercase leading-normal tracking-[0.34em] min-[400px]:text-[0.55rem] min-[400px]:tracking-[0.38em] sm:text-[0.575rem] sm:tracking-[0.44em]`}
-        style={{ color: "var(--color-welcome-navy)" }}
+        style={{ color: paperWash.sage }}
       >
         With {groom}
         <span
           className={`${aboveTheBeyond.className} mx-1.5 inline-block normal-case tracking-normal sm:mx-2`}
           style={{
             fontSize: "1.35em",
-            color: "var(--color-welcome-green)",
+            color: paperWash.sageSoft,
             verticalAlign: "middle",
           }}
           aria-hidden
@@ -58,7 +117,7 @@ function GalleryCoupleLabel({ groom, bride }: { groom: string; bride: string }) 
         className="h-px w-5 sm:w-7 md:w-9"
         style={{
           background:
-            "linear-gradient(to left, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
+            "linear-gradient(to left, transparent, color-mix(in srgb, #4b5d44 35%, transparent))",
         }}
         aria-hidden
       />
@@ -74,28 +133,24 @@ function GalleryTitle() {
         {
           "--title-size": "clamp(2.15rem, 11vw, 4.5rem)",
           "--script-size": "clamp(1.1rem, 4.5vw, 2.25rem)",
-          "--script-overlap": "clamp(-0.65rem, -2.8vw, -1.5rem)",
         } as React.CSSProperties
       }
     >
       <span
-        className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.15em] md:tracking-[0.18em]`}
+        className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em] pb-1 sm:pb-1.5`}
         style={{
           fontSize: "var(--title-size)",
-          color: "var(--color-welcome-navy)",
+          color: paperWash.sage,
         }}
       >
         Gallery
       </span>
       <span
         aria-hidden
-        className={`${aboveTheBeyond.className} relative z-10 mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9]`}
+        className={`${aboveTheBeyond.className} mx-auto mt-2 block w-fit max-w-full px-1 leading-[0.88] sm:mt-2.5 sm:leading-[0.9] md:mt-3`}
         style={{
-          marginTop: "var(--script-overlap)",
           fontSize: "var(--script-size)",
-          color: "var(--color-welcome-green)",
-          textShadow:
-            "0 1px 0 color-mix(in srgb, var(--color-welcome-bg) 95%, white), 0 0 10px color-mix(in srgb, var(--color-welcome-bg) 65%, white)",
+          color: paperWash.sageSoft,
         }}
       >
         our favorite moments
@@ -130,40 +185,9 @@ export default async function GalleryPage() {
   return (
     <main
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative min-h-screen overflow-x-hidden`}
-      style={{ background: "var(--color-welcome-bg)" }}
+      style={{ background: galleryBackground }}
     >
-      <div className="pointer-events-none absolute left-0 top-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/left-top-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute right-0 top-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/right-top-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/left-bottom-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 right-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/right-bottom-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
+      <CornerDecorations />
 
       <section className="relative z-20 mx-auto max-w-7xl px-3 py-8 sm:px-6 sm:py-12 lg:px-8 lg:py-16">
         <div className="mb-6 px-3 text-center sm:mb-8 sm:px-4 md:mb-10">
@@ -176,7 +200,7 @@ export default async function GalleryPage() {
           </div>
           <p
             className="font-goudy-italic mx-auto max-w-2xl px-2 text-[0.75rem] leading-[1.62] sm:text-[0.8125rem] sm:leading-[1.65] md:text-[0.84375rem]"
-            style={{ color: "var(--color-welcome-text)" }}
+            style={{ color: paperWash.sage }}
           >
             From our first chapter to this beautiful season of commitment — every moment has been a
             testament to love, faith, and grace.
@@ -187,19 +211,19 @@ export default async function GalleryPage() {
               className="h-px w-8 sm:w-12 md:w-16"
               style={{
                 background:
-                  "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 38%, transparent))",
+                  "linear-gradient(to right, transparent, color-mix(in srgb, #4b5d44 38%, transparent))",
               }}
             />
-            <Camera
-              className="h-3.5 w-3.5 sm:h-4 sm:w-4"
-              style={{ color: "var(--color-welcome-green)" }}
+            <span
+              className="h-0.5 w-0.5 rounded-full sm:h-1 sm:w-1"
+              style={{ backgroundColor: paperWash.sageSoft }}
               aria-hidden
             />
             <span
               className="h-px w-8 sm:w-12 md:w-16"
               style={{
                 background:
-                  "linear-gradient(to left, transparent, color-mix(in srgb, var(--color-welcome-navy) 38%, transparent))",
+                  "linear-gradient(to left, transparent, color-mix(in srgb, #4b5d44 38%, transparent))",
               }}
             />
           </div>
@@ -209,8 +233,8 @@ export default async function GalleryPage() {
           <MasonryGallery images={images} />
         ) : (
           <p
-            className="text-center font-sans text-sm"
-            style={{ color: "var(--color-welcome-text)" }}
+            className="text-center font-goudy-italic text-sm"
+            style={{ color: paperWash.sageSoft }}
           >
             No images to display.
           </p>

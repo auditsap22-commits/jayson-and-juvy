@@ -274,20 +274,28 @@ function InvitationWordDeco({ side }: { side: "left" | "right" }) {
 function ReminderTone({
   label,
   children,
+  emphasized = false,
 }: {
   label: string
   children: ReactNode
+  emphasized?: boolean
 }) {
   return (
     <div className="mx-auto w-full max-w-[34rem] space-y-2 text-center sm:space-y-2.5">
       <p
-        className={`${cinzel.className} text-[10px] font-semibold uppercase tracking-[0.22em] sm:text-[11px] md:text-xs`}
+        className={`${cinzel.className} font-semibold uppercase ${
+          emphasized
+            ? "text-[11px] tracking-[0.28em] underline decoration-[1.5px] underline-offset-[0.35em] sm:text-xs md:text-[13px]"
+            : "text-[10px] tracking-[0.22em] sm:text-[11px] md:text-xs"
+        }`}
         style={{ color: reminderInk.gold }}
       >
         {label}
       </p>
       <p
-        className={`font-goudy-italic ${ct.reminderBody} mx-auto max-w-prose text-pretty leading-[1.75]`}
+        className={`font-goudy-italic ${ct.reminderBody} mx-auto max-w-prose text-pretty leading-[1.75] ${
+          emphasized ? "font-semibold" : ""
+        }`}
         style={{ color: reminderInk.champagne }}
       >
         {children}
@@ -342,12 +350,12 @@ const attireGuide = {
     ladies: {
       colors: ["#DFE8DD", "#BFCFB8", "#8EA58C", "#738A6E", "#344C3D"] as const,
       description:
-        "Ladies may wear a midi or cocktail dress in Sage Hint, Mint, Sage, Moss, or Evergreen. We welcome a range of elegant styles, so long as they stay within the guide.",
+        "Ladies may wear a midi, cocktail, or casual dress in Sage Hint, Mint, Sage, Moss, or Evergreen. Comfortable styles are most welcome, so long as they stay within the palette.",
     },
     gentlemen: {
       colors: ["#DFE8DD", "#BFCFB8", "#8EA58C", "#738A6E", "#344C3D"] as const,
       description:
-        "Gentlemen may wear a collared shirt in Sage Hint, Mint, Sage, Moss, or Evergreen, paired with Sage Hint trousers and brown leather loafers.",
+        "Gentlemen may wear a collared shirt or a casual polo in Sage Hint, Mint, Sage, Moss, or Evergreen, paired with trousers and comfortable shoes.",
     },
   },
 } as const
@@ -1038,7 +1046,7 @@ export function Details() {
             className={`font-goudy-italic ${ct.bodyLg} mt-3 leading-relaxed sm:mt-4`}
             style={{ color: paperWash.sage }}
           >
-            Please dress according to the guidelines below.
+            Please dress according to the guidelines below. Guests are most welcome in casual attire within our palette.
           </p>
         </div>
 
@@ -1079,14 +1087,14 @@ export function Details() {
                   label="Ladies"
                   description={highlightAttirePhrase(
                     attireGuide.guests.ladies.description,
-                    "midi or cocktail dress",
+                    "casual dress",
                   )}
                 />
                 <AttirePaletteGroup
                   label="Gentlemen"
                   description={highlightAttirePhrase(
                     attireGuide.guests.gentlemen.description,
-                    "collared shirt",
+                    "casual polo",
                   )}
                 />
               </div>
@@ -1186,10 +1194,20 @@ export function Details() {
                   aria-hidden
                 />
 
-                <ReminderCard title="Strictly Formal">
-                  <ReminderTone label="Attire">
-                    Kindly follow our suggested attire and color palette above to match our
-                    wedding theme. Strictly no casual clothes, shoes, or white-colored attire.
+                <ReminderCard title="Casual Welcome">
+                  <ReminderTone label="Casual" emphasized>
+                    Casual is most welcome. Come in comfortable clothes and shoes in Sage
+                    Hint, Mint, Sage, Moss, or Evergreen — this is a home celebration, so
+                    dress with ease. Kindly leave white for the couple.
+                  </ReminderTone>
+                  <ReminderTone label="Formal">
+                    If you prefer to dress up, a midi or cocktail dress, or a collared
+                    shirt, in our sage palette is lovely. Please still avoid white.
+                  </ReminderTone>
+                  <ReminderTone label="Tagalog">
+                    Malugod naming inaanyayahan ang kaswal na pananamit. Magsuot po ng
+                    komportable sa Sage Hint, Mint, Sage, Moss, o Evergreen. Iwasan
+                    lamang po ang puti, dahil ito ay para sa ikakasal.
                   </ReminderTone>
                   <ColorPalette colors={attireGuide.guests.ladies.colors} frame="gold" />
                 </ReminderCard>

@@ -225,7 +225,7 @@ export default function Home() {
               {/* <LoveStory /> */}
               {/* <ProposalVideo /> */}
               <Countdown />
-              {/* <Gallery /> */}
+              <Gallery />
               <Details />
               <VideoMessage />
               <Messages />
@@ -239,8 +239,8 @@ export default function Home() {
               {/* <PrincipalSponsors /> */}
               <WeddingPlaylist />
               <FAQ />
-              <Registry />
-              {/* <SnapShare /> */}
+              {/* <Registry /> */}
+              <SnapShare />
 
               <Footer />
               </motion.div>

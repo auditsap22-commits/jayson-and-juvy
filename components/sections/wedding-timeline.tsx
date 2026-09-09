@@ -148,7 +148,7 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
 
   return [
     {
-      time: entourageTime,
+      time: "6:30 AM",
       title: "Entourage Assembly",
       description: "Wedding party gathers before the ceremony begins.",
       location: ceremonyVenue,
@@ -156,7 +156,7 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
       imageSrc: "/weddingtimeline/assemble.png",
     },
     {
-      time: arrivalTime,
+      time: "7:00 AM",
       title: "Guest Arrival",
       description: "Please be seated so the ceremony may begin on time.",
       location: ceremonyVenue,
@@ -164,7 +164,7 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
       imageSrc: "/weddingtimeline/arrivalimage.png",
     },
     {
-      time: ceremonyTime,
+      time: "7:30 AM",
       title: "Ceremony",
       description: "The nuptial celebration at Holy Mass.",
       location: ceremonyVenue,
