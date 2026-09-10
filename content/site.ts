@@ -52,9 +52,9 @@ export const siteConfig = {
   },
   giftRegistry: {
     QR_1:{
-    id: "BPI",
+    id: "BDO",
     src: "/QR/new-BPI.png",
-    label: "BPI bank",
+    label: "BDO bank",
     accountNumber: "JUVYD : ******** 1648",
     }
   },
