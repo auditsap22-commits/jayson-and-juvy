@@ -52,11 +52,18 @@ export const siteConfig = {
   },
   giftRegistry: {
     QR_1:{
+      id: "Gcash",
+      src: "/QR/Gcash.png",
+      label: "Gcash",
+      accountNumber: "JU*Y D. : +63 916 466 ****",
+      },
+    QR_2:{
     id: "BDO",
     src: "/QR/new-BPI.png",
     label: "BDO bank",
     accountNumber: "JUVYD : ******** 1648",
     }
+
   },
   ceremony: {
     location: "Holy Cross Parish",
