@@ -273,8 +273,8 @@ export const Hero: React.FC<HeroProps> = ({
   */
   const letterVariants: Variants = {
     hidden: { y: '6%', scale: 0.86, opacity: 1, rotate: -0.5 },
-    rising: { y: '-12%', scale: 1, opacity: 1, rotate: 0 },
-    out: { y: '-12%', scale: 1, opacity: 1, rotate: 0 },
+    rising: { y: '-18%', scale: 1, opacity: 1, rotate: 0 },
+    out: { y: '-18%', scale: 1, opacity: 1, rotate: 0 },
     exitPortal: {
       y: '-122%',
       scale: 2.75,

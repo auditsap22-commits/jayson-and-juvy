@@ -104,26 +104,6 @@ function TimelineTitle() {
   )
 }
 
-function addMinutesToTime(time: string, minutesToAdd: number): string {
-  const match = time.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i)
-  if (!match) return time
-
-  let hours = Number(match[1])
-  const minutes = Number(match[2])
-  const meridiem = match[3].toUpperCase()
-  if (meridiem === "PM" && hours !== 12) hours += 12
-  if (meridiem === "AM" && hours === 12) hours = 0
-
-  const total = (((hours * 60 + minutes + minutesToAdd) % (24 * 60)) + 24 * 60) % (24 * 60)
-  let nextHours = Math.floor(total / 60)
-  const nextMinutes = total % 60
-  const nextMeridiem = nextHours >= 12 ? "PM" : "AM"
-  nextHours = nextHours % 12
-  if (nextHours === 0) nextHours = 12
-
-  return `${nextHours}:${String(nextMinutes).padStart(2, "0")} ${nextMeridiem}`
-}
-
 function toTitleCase(value: string): string {
   return value
     .toLowerCase()
@@ -135,36 +115,10 @@ function toTitleCase(value: string): string {
 function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
   const ceremonyVenue = siteConfig.ceremony.location
   const receptionVenue = toTitleCase(siteConfig.reception.location)
-  const entourageTime = siteConfig.ceremony.entourageTime
-  const arrivalTime = siteConfig.ceremony.guestsTime
-  const ceremonyTime = siteConfig.ceremony.time
-  const receptionTime = siteConfig.reception.time
-  const photosTime = addMinutesToTime(ceremonyTime, 120)
-  const cocktailTime = addMinutesToTime(receptionTime, -30)
-  const lunchTime = addMinutesToTime(receptionTime, 45)
-  const cakeTime = addMinutesToTime(receptionTime, 120)
-  const danceTime = addMinutesToTime(receptionTime, 165)
-  const sendOffTime = addMinutesToTime(receptionTime, 300)
 
   return [
     {
-      time: "6:30 AM",
-      title: "Entourage Assembly",
-      description: "Wedding party gathers before the ceremony begins.",
-      location: ceremonyVenue,
-      icon: GuestsIcon,
-      imageSrc: "/weddingtimeline/assemble.png",
-    },
-    {
-      time: "7:00 AM",
-      title: "Guest Arrival",
-      description: "Please be seated so the ceremony may begin on time.",
-      location: ceremonyVenue,
-      icon: GuestsIcon,
-      imageSrc: "/weddingtimeline/arrivalimage.png",
-    },
-    {
-      time: "7:30 AM",
+      time: "8:00 AM",
       title: "Ceremony",
       description: "The nuptial celebration at Holy Mass.",
       location: ceremonyVenue,
@@ -172,31 +126,31 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
       imageSrc: "/weddingtimeline/WeddingCeremony.png",
     },
     {
-      time: photosTime,
-      title: "Photos",
-      description: "A brief gathering for family and entourage portraits.",
+      time: "10:00 AM",
+      title: "Photo Opportunity",
+      description: "A gathering for family and entourage portraits.",
       location: ceremonyVenue,
       icon: RingsIcon,
       imageSrc: "/weddingtimeline/PhotoSession.png",
     },
     {
-      time: cocktailTime,
-      title: "Cocktail Hour",
+      time: "10:30 AM",
+      title: "Cocktails / Snacks",
       description: "A light welcome as guests arrive at the residence.",
       location: receptionVenue,
       icon: CocktailIcon,
       imageSrc: "/weddingtimeline/CockTailHour.png",
     },
     {
-      time: receptionTime,
-      title: "Reception",
-      description: "The celebration continues after the ceremony.",
+      time: "11:00 AM",
+      title: "Cake Slicing",
+      description: "A sweet pause in the celebration.",
       location: receptionVenue,
       icon: DinnerIcon,
-      imageSrc: "/weddingtimeline/reception welcom.png",
+      imageSrc: "/weddingtimeline/cakecutting.png",
     },
     {
-      time: lunchTime,
+      time: "11:30 AM",
       title: "Lunch",
       description: "Please join us at the table.",
       location: receptionVenue,
@@ -204,24 +158,8 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
       imageSrc: "/weddingtimeline/DinnerService.png",
     },
     {
-      time: cakeTime,
-      title: "Cake Cutting",
-      description: "A sweet pause in the celebration.",
-      location: receptionVenue,
-      icon: DinnerIcon,
-      imageSrc: "/weddingtimeline/cakecutting.png",
-    },
-    {
-      time: danceTime,
-      title: "Dance",
-      description: "The floor is open — come celebrate with us.",
-      location: receptionVenue,
-      icon: DanceIcon,
-      imageSrc: "/weddingtimeline/dance.png",
-    },
-    {
-      time: sendOffTime,
-      title: "Send Off",
+      time: "1:00 PM",
+      title: "Send-Off",
       description: "We close the day with love, gratitude, and one last cheer.",
       location: receptionVenue,
       icon: FireworksIcon,
@@ -251,7 +189,7 @@ export function WeddingTimeline() {
           className={`font-goudy-italic mx-auto mt-4 max-w-xl px-2 sm:mt-5 md:mt-6 ${sectionType.textRelaxed}`}
           style={{ color: C.text }}
         >
-          From morning vows at the church to the last cheer of the evening.
+          From morning vows at the church to the last cheer of the afternoon.
         </p>
         <div className="mt-4 flex items-center justify-center sm:mt-5">
           <span className="h-px w-16 sm:w-24 md:w-32" style={{ background: goldLine }} />
@@ -465,17 +403,6 @@ function IconMark({
 
 const iconStroke = C.text
 
-function GuestsIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M11 16a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" />
-      <path d="M21 16a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 21 16Z" />
-      <path d="M4 24.5c1.2-3 3.9-4.5 7-4.5s5.8 1.5 7 4.5" />
-      <path d="M17.5 19.5A6 6 0 0 1 26 24" />
-    </svg>
-  )
-}
-
 function RingsIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -526,17 +453,3 @@ function CocktailIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
-function DanceIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="10" cy="12" r="3" />
-      <circle cx="22" cy="12" r="3" />
-      <path d="M10 15v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6" />
-      <path d="M12 23v2" />
-      <path d="M20 23v2" />
-      <path d="M8 18h16" />
-      <path d="M16 5v4" />
-      <path d="M13 7l3-2 3 2" />
-    </svg>
-  )
-}

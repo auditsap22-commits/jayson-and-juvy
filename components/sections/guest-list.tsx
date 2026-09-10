@@ -20,7 +20,6 @@ import {
 } from "lucide-react"
 import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
-import { useSiteConfig } from "@/hooks/use-site-config"
 import { modalTitleSize, sectionType, welcomeTitleSize } from "@/lib/section-typography"
 
 const cinzel = Cinzel({
@@ -127,7 +126,6 @@ interface Guest {
 }
 
 export function GuestList() {
-  const siteConfig = useSiteConfig()
   const [guests, setGuests] = useState<Guest[]>([])
   const [filteredGuests, setFilteredGuests] = useState<Guest[]>([])
   const [searchQuery, setSearchQuery] = useState("")
@@ -520,12 +518,6 @@ export function GuestList() {
           <p className={`font-goudy-italic ${sectionType.textRelaxed}`} style={{ color: outsideInk.textSoft }}>
             If we do not receive your response by the deadline, we will assume you are unable to attend.
           </p>
-          <p className={`${cinzel.className} ${sectionType.text} font-semibold tracking-wide`} style={{ color: outsideInk.text }}>
-            RSVP Deadline: {siteConfig.details.rsvp.deadline}
-          </p>
-          {/* <p className={`${cinzel.className} ${sectionType.text} font-semibold tracking-wide`} style={{ color: OUTSIDE_TEXT }}>
-            Coordinator: {siteConfig.details.rsvp.coordinator} · {siteConfig.details.rsvp.phone}
-          </p> */}
         </div>
 
         {/* Divider below header */}
