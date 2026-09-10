@@ -239,7 +239,7 @@ export default function Home() {
               {/* <PrincipalSponsors /> */}
               <WeddingPlaylist />
               <FAQ />
-              {/* <Registry /> */}
+              <Registry />
               <SnapShare />
 
               <Footer />
