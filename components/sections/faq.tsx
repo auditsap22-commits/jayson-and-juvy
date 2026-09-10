@@ -197,8 +197,6 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
             guest list
           </a>{" "}
           on this invitation: search for your name and confirm your attendance.
-          {"\n\n"}
-          Please respond by {siteConfig.details.rsvp.deadline.replace(/\.\s*$/, "")}.
           {showRsvpPhone
             ? `\n\nIf you have questions, please contact ${siteConfig.details.rsvp.coordinator} at ${rsvpPhone}.`
             : `\n\nIf you have questions, please contact ${siteConfig.details.rsvp.coordinator}.`}

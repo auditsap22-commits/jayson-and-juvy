@@ -400,18 +400,6 @@ export function Footer() {
                   <DetailRow label="Reception Time" value={receptionTime} />
                 </div>
               </FooterCard>
-
-              <FooterCard>
-                <h4 className={`${cinzel.className} ${ct.cardTitle} font-semibold mb-3`} style={{ color: palette.heading }}>
-                  RSVP Deadline
-                </h4>
-                <div className="space-y-2">
-                  <DetailRow label="Please respond by" value={siteConfig.details.rsvp.deadline} />
-                  <p className={`font-goudy-italic ${ct.body} opacity-90`} style={{ color: palette.body }}>
-                    Please confirm your attendance by this date.
-                  </p>
-                </div>
-              </FooterCard>
             </motion.div>
 
             {/* Social + links */}
