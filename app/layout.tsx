@@ -10,8 +10,8 @@ import { anastasiaScript } from "@/lib/fonts"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://jayson-and-juvy.weddinginvitationrsvp.com/"
 const canonicalUrl = siteUrl.replace(/\/$/, "")
-  const desktopHero = "/Details/linkPreviewnew.png"
-const mobileHero = "/Details/linkPreviewnew.png"
+  const desktopHero = "/Details/new_linkePreview.png"
+const mobileHero = "/Details/new_linkPreview.png"
 const eventImageUrl = `${canonicalUrl}${desktopHero}`
 const OG_IMAGE_FALLBACK = `${canonicalUrl}${desktopHero}`
 
